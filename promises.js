@@ -16,24 +16,48 @@ const getMovie = (id)=>{
         });
     }
 
-const getreview = (id,cb)=>{
-    setTimeout(()=>{
-    const review = reviews.find((review)=>review.movie_id==id);
-    cb(review);
-    },1000);
+const getreview = (id)=>{
+    return new Promise((resolve,reject)=>{
+
+        setTimeout(()=>{
+        const review = reviews.find((review)=>review.movie_id==id);
+        if(review){
+            resolve(review);
+        }else{
+            reject('Not Found');
+          }
+        },1000);
+    });
 }
 
-const getuser = (name,cb)=>{
-    setTimeout(()=>{
-        const user = users.find((user)=>user.name===name);
-        cb(user)
-    },1000);
+const getuser = (name)=>{
+    return new Promise((resolve,reject)=>{
+
+        setTimeout(()=>{
+            const user = users.find((user)=>user.name===name);
+            if(user){
+                resolve(user);
+            }else{
+                reject("Not Found");
+            }
+        },1000);
+    });
 }
 
 getMovie(1)
 .then(movie=>{
-    console.log(movie);
+   return getreview(movie.id);
+})
+.then(review=>{
+    return getuser(review.reviewer);
+})
+.then(user=>{
+    console.log(user);
 })
 .catch(err=>{
     console.log(err);
 })
+
+
+
+// getuser()
