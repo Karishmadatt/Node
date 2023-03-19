@@ -48,9 +48,9 @@ getMovie(1)
 .then(movie=>{
    return getreview(movie.id);
 })
-.then(review=>{
-    return getuser(review.reviewer);
-})
+// .then(review=>{
+//     return getuser(review.reviewer);
+// })
 .then(user=>{
     console.log(user);
 })
